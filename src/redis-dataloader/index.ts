@@ -2,7 +2,7 @@ import assert from 'assert';
 import DataLoader, { BatchLoadFn } from 'dataloader';
 import type { Cluster, Redis } from 'ioredis';
 import { NotFoundError } from '../errors/not-found';
-import { CustomNotFound, RedisDataloaderOptionsRequired } from './types';
+import { CustomNotFound, RedisDataloaderOptionsRequired } from './types/interfaces';
 
 export class RedisDataLoader<K, V, C extends string = K extends string ? K : never> extends DataLoader<K, V, C> {
 	public static checkForDuplicates = true;
