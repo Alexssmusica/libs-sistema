@@ -1,6 +1,6 @@
 {
 	"name": "libs-sistema",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Libs utilitárias para sistemas",
 	"main": "dist/index.js",
 	"author": "Alex Santos de Souza",
@@ -17,7 +17,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"dataloader": "^2.2.2",
-		"ioredis": "^5.4.1"
+		"ioredis": "5.3.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.12.11",
