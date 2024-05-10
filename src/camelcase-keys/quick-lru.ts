@@ -10,19 +10,14 @@ export default class QuickLRU<KeyType extends unknown, ValueType extends unknown
 
 	constructor(options = {} as QuickLRUOptions) {
 		super();
-		//@ts-ignore
 		if (!(options.maxSize && options.maxSize > 0)) {
 			throw new TypeError('`maxSize` must be a number greater than 0');
 		}
-		//@ts-ignore
 		if (typeof options.maxAge === 'number' && options.maxAge === 0) {
 			throw new TypeError('`maxAge` must be a number greater than 0');
 		}
-		//@ts-ignore
 		this.#maxSize = options.maxSize;
-		//@ts-ignore
 		this.#maxAge = options.maxAge || Number.POSITIVE_INFINITY;
-		//@ts-ignore
 		this.#onEviction = options.onEviction;
 	}
 
@@ -31,7 +26,7 @@ export default class QuickLRU<KeyType extends unknown, ValueType extends unknown
 		return this.#oldCache;
 	}
 
-	#emitEvictions(cache: Iterable<[KeyType, ValueType]>) {
+	#emitEvictions(cache: any) {
 		if (typeof this.#onEviction !== 'function') {
 			return;
 		}
@@ -131,7 +126,7 @@ export default class QuickLRU<KeyType extends unknown, ValueType extends unknown
 				expiry
 			});
 		} else {
-			this.#set(key, { value, expiry });
+			this.#set(key, { value, expiry } as ValueType);
 		}
 
 		return this;
@@ -254,7 +249,7 @@ export default class QuickLRU<KeyType extends unknown, ValueType extends unknown
 		}
 	}
 
-	*entriesAscending() {
+	*entriesAscending(): any {
 		for (const [key, value] of this.#entriesAscending()) {
 			yield [key, value.value];
 		}

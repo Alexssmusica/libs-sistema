@@ -1,9 +1,10 @@
 import camelCase from './camelcase';
 import mapObject from './map-obj';
 import QuickLRU from './quick-lru';
+import { CamelCaseKeysOptions } from './types';
 
-const has = (array, key) =>
-	array.some((x) => {
+const has = (array: any, key: any) =>
+	array.some((x: any) => {
 		if (typeof x === 'string') {
 			return x === key;
 		}
@@ -12,13 +13,13 @@ const has = (array, key) =>
 		return x.test(key);
 	});
 
-const cache = new QuickLRU({ maxSize: 10000 });
+const cache = new QuickLRU({ maxSize: 1000 });
 
 // Reproduces behavior from `map-obj`
-const isObject = (value) =>
+const isObject = (value: any) =>
 	typeof value === 'object' && value !== null && !(value instanceof RegExp) && !(value instanceof Error) && !(value instanceof Date);
 
-const camelCaseConvert = (input, options) => {
+const camelCaseConvert = (input: any, options: any) => {
 	if (!isObject(input)) {
 		return input;
 	}
@@ -33,7 +34,7 @@ const camelCaseConvert = (input, options) => {
 
 	const stopPathsSet = new Set(stopPaths);
 
-	const makeMapper = (parentPath) => (key, value) => {
+	const makeMapper = (parentPath: any) => (key: any, value: any) => {
 		if (deep && isObject(value)) {
 			const path = parentPath === undefined ? key : `${parentPath}.${key}`;
 
@@ -65,15 +66,16 @@ const camelCaseConvert = (input, options) => {
 	return mapObject(input, makeMapper(undefined));
 };
 
-export default (input, options?) => {
-	try {
-		if (Array.isArray(input)) {
-			return Object.keys(input).map((key) => camelCaseConvert(input[key], options));
-		}
-		return camelCaseConvert(input, options);
-	} catch (error) {
-		throw new Error(error);
-	} finally {
+export default function camelCaseKeys<T extends ReadonlyArray<{ [key: string]: any } | { [key: string]: any }>>(
+	input: T,
+	options?: CamelCaseKeysOptions
+) {
+	if (Array.isArray(input)) {
+		const retornoArray = Object.keys(input).map((key: any) => camelCaseConvert(input[key], options));
 		cache.clear();
+		return retornoArray;
 	}
-};
+	const retornoObject = camelCaseConvert(input, options);
+	cache.clear();
+	return retornoObject;
+}
