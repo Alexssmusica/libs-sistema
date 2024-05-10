@@ -1,14 +1,17 @@
 {
 	"name": "libs-sistema",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Libs utilitárias para sistemas",
 	"main": "dist/index.js",
-	"type": "module",
+	"author": "Alex Santos de Souza",
 	"scripts": {
 		"build": "npx tsc",
 		"prettier": "prettier src/**/*.{js,ts} --write",
 		"type": "tsc --project tsconfig.json"
 	},
+	"directories": {
+		"dist": "dist"
+	  },
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
