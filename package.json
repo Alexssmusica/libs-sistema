@@ -1,6 +1,6 @@
 {
 	"name": "libs-sistema",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Libs utilitárias para sistemas",
 	"main": "dist/index.js",
 	"author": "Alex Santos de Souza",

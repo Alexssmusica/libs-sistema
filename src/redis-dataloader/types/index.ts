@@ -1,4 +1,4 @@
-import type { Cluster, Redis } from 'ioredis';
+import { Cluster, Redis } from 'ioredis';
 import { NotFoundError } from '../../errors/not-found';
 
 export interface CustomNotFound<T> {
@@ -10,7 +10,7 @@ export interface RedisDataloaderOptions<K, V> {
 		suffix?: string;
 		client: Redis | Cluster;
 		ttl: number;
-		ttlNotFound?: number; // default to 60sec
+		ttlNotFound?: number; // default to 30sec
 		deserialize?: (key: K, data: string) => V | Error;
 		serialize?: (value: V) => string;
 		logging?: (...args: unknown[]) => void;
